@@ -1,19 +1,56 @@
-= Build an Neo4j-backed Chatbot using Python
+# README
 
-This repository accompanies the link:https://graphacademy.neo4j.com/courses/llm-chatbot-python/?ref=github[Build an Neo4j-backed Chatbot using Python^] course on link:https://graphacademy.neo4j.com/?ref=github[Neo4j GraphAcademy^].
+## Build a Neo4j-backed Chatbot using Python
 
-For a complete walkthrough of this repository, link:https://graphacademy.neo4j.com/courses/llm-chatbot-python/?ref=github[enrol now^].
+This repository accompanies the Build a Neo4j-backed Chatbot using Python course on Neo4j GraphAcademy. For a complete walkthrough of this repository, enrol now.
 
-
-== Running the application
+## Running the Application
 
 To run the application, you must install the libraries listed in `requirements.txt`.
 
-[source,sh]
-pip install -r requirements.txt
+Then run the `streamlit run` command to start the app on http://localhost:8501.
 
+## Repository Structure
 
-Then run the `streamlit run` command to start the app on link:http://localhost:8501/[http://localhost:8501/^].
+### Key Files and Directories
 
-[source,sh]
-streamlit run bot.py
+- `agent.py`: Contains the logic for generating responses.
+- `bot.py`: Main entry point for the Streamlit application.
+- `graph.py`: Handles graph-related operations.
+- `llm.py`: Manages interactions with the language model.
+- `utils.py`: Utility functions used across the project.
+- `requirements.txt`: Lists the dependencies required for the project.
+- `examples/helloworld/app.py`: Example Streamlit application.
+- `solutions/`: Contains various solution scripts for different tasks.
+- `tools/`: Contains additional tools and scripts.
+
+### Notebooks
+
+- `bible_knowledge_graph.ipynb`: Jupyter notebook for preprocessing Bible text and generating knowledge graphs.
+- `knowledge_graph_generation_experiment/graphrag.ipynb`: Experimental notebook for generating knowledge graphs.
+
+### Configuration
+
+- `.gitpod.yml`: Configuration for Gitpod workspace.
+- `.streamlit/secrets.toml`: Contains secrets for Streamlit application (ignored by Git).
+
+### Ignored Files
+
+- `.gitignore`: Specifies files and directories to be ignored by Git.
+- `.streamlit/secrets.toml`: Contains secrets for Streamlit application (ignored by Git).
+
+## Dependencies
+
+The project relies on several key libraries, including but not limited to:
+
+- streamlit
+- neo4j-driver
+- langchain
+- torch
+- datasets
+- einops
+- transformers
+- flash-attn
+- sentence-transformers
+
+For a complete list, refer to the `requirements.txt` file.
