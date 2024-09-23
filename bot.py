@@ -1,5 +1,6 @@
 import streamlit as st
 from utils import write_message
+from agent import generate_response
 
 # Page Config
 st.set_page_config("Ebert", page_icon=":movie_camera:")
@@ -18,14 +19,12 @@ def handle_submit(message):
     You will modify this method to talk with an LLM and provide
     context using data from Neo4j.
     """
-
+ 
     # Handle the response
     with st.spinner('Thinking...'):
-        # # TODO: Replace this with a call to your LLM
-        from time import sleep
-        sleep(1)
-        write_message('assistant', message)
-
+        # Call the agent
+        response = generate_response(message)
+        write_message('assistant', response)
 
 # Display messages in Session State
 for message in st.session_state.messages:
