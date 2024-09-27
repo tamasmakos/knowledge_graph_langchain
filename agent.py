@@ -7,14 +7,14 @@ from langchain.tools import Tool
 from langchain_community.chat_message_histories import Neo4jChatMessageHistory
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain import hub
+# from langchain import hub
 from utils import get_session_id
-
-from tools.vector import get_movie_plot
+from tools.cypher import cypher_qa
+from tools.vector import get_verse_text
 
 chat_prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", "You are a movie expert providing information about movies."),
+        ("system", "You are a bible expert providing information about the bible."),
         ("human", "{input}"),
     ]
 )
@@ -28,9 +28,14 @@ tools = [
         func=movie_chat.invoke,
     ), 
     Tool.from_function(
-        name="Movie Plot Search",  
-        description="For when you need to find information about movies based on a plot",
-        func=get_movie_plot, 
+        name="Bible Verse Search",  
+        description="Use this tool when you need to find or quote specific verse texts from the Bible. Input should be a question or request about Bible verses.",
+        func=get_verse_text
+    ),
+    Tool.from_function(
+        name="Bible information",
+        description="Provide information about bible verses questions using Cypher",
+        func = cypher_qa
     )
 ]
 
@@ -38,9 +43,9 @@ def get_memory(session_id):
     return Neo4jChatMessageHistory(session_id=session_id, graph=graph)
 
 agent_prompt = PromptTemplate.from_template("""
-You are a movie expert providing information about movies.
+You are a bible expert providing information about the bible.
 Be as helpful as possible and return as much information as possible.
-Do not answer any questions that do not relate to movies, actors or directors.
+Do not answer any questions that do not relate to the bible
 
 Do not answer any questions using your pre-trained knowledge, only use the information provided in the context.
 

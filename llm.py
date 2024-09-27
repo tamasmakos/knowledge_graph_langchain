@@ -5,7 +5,7 @@ from langchain_groq import ChatGroq
 
 llm = ChatGroq(
     model="llama-3.1-70b-versatile",
-    temperature=0.1,
+    temperature=0.0,
     max_retries=2,
     api_key=st.secrets["GROQ_API_KEY"]
 
