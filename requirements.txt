@@ -1,3 +1,6 @@
+torch==2.1.2
+packaging
+ipykernel
 tenacity!=8.4.0
 langchain
 neo4j-driver
@@ -5,9 +8,7 @@ streamlit
 langchainhub
 langchain-community
 langchain_groq
-torch==2.2.0
 datasets
 einops
 transformers==4.42.4
-flash-attn==2.2.0
 sentence-transformers==2.7.0

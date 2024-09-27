@@ -5,26 +5,23 @@ from graph import graph
 # Create the Neo4jVector
 from langchain_community.vectorstores.neo4j_vector import Neo4jVector
 
-neo4jvector = Neo4jVector.from_existing_index(
-    embeddings,                              # (1)
-    graph=graph,                             # (2)
-    index_name="moviePlots",                 # (3)
-    node_label="Movie",                      # (4)
-    text_node_property="plot",               # (5)
-    embedding_node_property="plotEmbedding", # (6)
-    retrieval_query="""
-RETURN
-    node.plot AS text,
-    score,
-    {
-        title: node.title,
-        directors: [ (person)-[:DIRECTED]->(node) | person.name ],
-        actors: [ (person)-[r:ACTED_IN]->(node) | [person.name, r.role] ],
-        tmdbId: node.tmdbId,
-        source: 'https://www.themoviedb.org/movie/'+ node.tmdbId
-    } AS metadata
-"""
-)
+try:
+    # Test the embedding function
+    test_embedding = embeddings.embed_query("test")
+    if not test_embedding:
+        raise ValueError("Embedding function returned an empty result")
+
+    neo4jvector = Neo4jVector.from_existing_index(
+        embeddings,                              # (1)
+        graph=graph,                             # (2)
+        index_name="bibleVerses",                # (3)
+        node_label="Verse",                      # (4)
+        text_node_property="text",               # (5)
+        embedding_node_property="embedding",     # (6)
+    )
+except Exception as e:
+    st.error(f"Error initializing Neo4jVector: {str(e)}")
+    neo4jvector = None
 
 # Create the retriever
 retriever = neo4jvector.as_retriever()
@@ -55,6 +52,13 @@ plot_retriever = create_retrieval_chain(
     question_answer_chain
 )
 
-# Create a function to call the chain
-def get_movie_plot(input):
-    return plot_retriever.invoke({"input": input})
+def get_verse_text(input):
+    try:
+        response = plot_retriever.invoke({"input": input})
+        # Assuming the response contains an 'answer' key with the relevant text
+        if 'answer' in response:
+            return response['answer']
+        else:
+            return "I'm sorry, I couldn't find the specific verse text."
+    except Exception as e:
+        return f"An error occurred while retrieving the verse: {str(e)}"

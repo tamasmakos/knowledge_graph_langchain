@@ -1,1 +1,5 @@
-moved from gitpod
+Simulation Metamodeling
+Create a metamodel for a discrete-event simulation using modular DBNs.
+This will show you how DBNs can be used to answer complex probabilistic and causal queries in simulation systems.
+
+How dynamic bayesian networks are used in discrete-event simulation to answer complex probabilistic and causal queries in simulation systems.
