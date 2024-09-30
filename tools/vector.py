@@ -54,11 +54,13 @@ plot_retriever = create_retrieval_chain(
 
 def get_verse_text(input):
     try:
-        response = plot_retriever.invoke({"input": input})
-        # Assuming the response contains an 'answer' key with the relevant text
-        if 'answer' in response:
-            return response['answer']
+        response = neo4jvector.similarity_search_with_score(input, k=5)
+        if response:
+            similar_verses = []
+            for doc, score in response:
+                similar_verses.append(f"{doc.metadata['book']} {doc.metadata['chapter']}:{doc.metadata['verse']} - {doc.page_content} (Similarity: {score:.2f})")
+            return "\n".join(similar_verses)
         else:
-            return "I'm sorry, I couldn't find the specific verse text."
+            return "No relevant verses found."
     except Exception as e:
         return f"An error occurred while retrieving the verse: {str(e)}"
