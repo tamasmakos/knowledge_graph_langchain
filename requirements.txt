@@ -12,3 +12,4 @@ datasets
 einops
 transformers==4.42.4
 sentence-transformers==2.7.0
+langchain-experimental
