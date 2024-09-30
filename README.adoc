@@ -1,56 +1,89 @@
-# README
+Here's a markdown section you can add to your README file based on the repository contents:
 
-## Build a Neo4j-backed Chatbot using Python
+# Knowledge Graph Experiments
 
-This repository accompanies the Build a Neo4j-backed Chatbot using Python course on Neo4j GraphAcademy. For a complete walkthrough of this repository, enrol now.
+This repository contains various experiments and tools for working with knowledge graphs, particularly focused on processing and analyzing literary texts.
 
-## Running the Application
+## Key Components
 
-To run the application, you must install the libraries listed in `requirements.txt`.
+### Faust Knowledge Graph Experiment
 
-Then run the `streamlit run` command to start the app on http://localhost:8501.
+The `faust_knowledge_graph_experiment.ipynb` notebook demonstrates the process of converting text from Goethe's Faust into a knowledge graph. It uses the following key components:
 
-## Repository Structure
+- Neo4j Graph Database
+- LangChain's LLMGraphTransformer
+- Groq's LLM for natural language processing
 
-### Key Files and Directories
+Key code snippet:
 
-- `agent.py`: Contains the logic for generating responses.
-- `bot.py`: Main entry point for the Streamlit application.
-- `graph.py`: Handles graph-related operations.
-- `llm.py`: Manages interactions with the language model.
-- `utils.py`: Utility functions used across the project.
-- `requirements.txt`: Lists the dependencies required for the project.
-- `examples/helloworld/app.py`: Example Streamlit application.
-- `solutions/`: Contains various solution scripts for different tasks.
-- `tools/`: Contains additional tools and scripts.
 
-### Notebooks
+```37:45:faust_knowledge_graph_experiment.ipynb
+    "graph = Neo4jGraph(\n",
+    "    url=NEO4J_URI,\n",
+    "    username=NEO4J_USERNAME,\n",
+    "    password=NEO4J_PASSWORD,\n",
+    "    database=NEO4J_DATABASE\n",
+    ")\n",
+    "\n",
+    "rate_limiter = InMemoryRateLimiter(\n",
+    "    requests_per_second=1,\n",
+```
 
-- `bible_knowledge_graph.ipynb`: Jupyter notebook for preprocessing Bible text and generating knowledge graphs.
-- `knowledge_graph_generation_experiment/graphrag.ipynb`: Experimental notebook for generating knowledge graphs.
 
-### Configuration
+### Bible Knowledge Graph Generation
 
-- `.gitpod.yml`: Configuration for Gitpod workspace.
-- `.streamlit/secrets.toml`: Contains secrets for Streamlit application (ignored by Git).
+The `knowledge_graph_first_experiment.ipynb` and `knowledge_graph_second_experiment.ipynb` notebooks show experiments with generating knowledge graphs from biblical texts. These notebooks utilize:
 
-### Ignored Files
+- Named Entity Recognition (NER) using Hugging Face's transformers
+- Sentence embeddings using SentenceTransformer
+- Neo4j for graph storage and querying
 
-- `.gitignore`: Specifies files and directories to be ignored by Git.
-- `.streamlit/secrets.toml`: Contains secrets for Streamlit application (ignored by Git).
+### Dynamic Bayesian Network Game
 
-## Dependencies
+The `dbn_game.ipynb` notebook contains an implementation of a detective game using Dynamic Bayesian Networks. This demonstrates the application of probabilistic graphical models in an interactive scenario.
 
-The project relies on several key libraries, including but not limited to:
+## Setup and Dependencies
 
-- streamlit
-- neo4j-driver
-- langchain
-- torch
-- datasets
-- einops
-- transformers
-- flash-attn
-- sentence-transformers
+To run the experiments, ensure you have the required dependencies installed. You can install them using:
 
-For a complete list, refer to the `requirements.txt` file.
+```
+pip install -r requirements.txt
+```
+
+Key dependencies include:
+
+
+```1:15:requirements.txt
+torch==2.1.2
+packaging
+ipykernel
+tenacity!=8.4.0
+langchain
+neo4j-driver
+streamlit
+langchainhub
+langchain-community
+langchain_groq
+datasets
+einops
+transformers==4.42.4
+sentence-transformers==2.7.0
+langchain-experimental
+```
+
+
+## Configuration
+
+The project uses Streamlit for some components and requires configuration of secrets. Make sure to set up your `.streamlit/secrets.toml` file with the necessary API keys and database credentials.
+
+## Usage
+
+To run the Jupyter notebooks, use a Jupyter environment that supports the installed dependencies. For Streamlit components, you can run them using:
+
+```
+streamlit run [filename].py
+```
+
+## Note
+
+This project is experimental and may require adjustments based on your specific environment and use case. Always ensure you have the necessary permissions and rights when working with copyrighted texts or external APIs.
